@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it" data-palette="human" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenotazione - Dog Sitting Firenze</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lora:wght@400;600&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- Google Calendar API -->
+    <script src="https://apis.google.com/js/api.js"></script>
+</head>
+
+<body>
+        <!-- Hamburger Menu -->
+    <button class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#servizi">Servizi</a></li>
+            <li><a href="/pages/booking.html">Prenotazione</a></li>
+            <li><a href="#chi-siamo">Chi Siamo</a></li>
+            <li><a href="#contatti">Contatti</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header/Banner -->
+    <header >
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        
+        <div class="banner-content">
+            <h1>Prenota il tuo Servizio</h1>
+            <p>Scegli il giorno perfetto per il tuo amico a quattro zampe</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="booking-page">
+        
+        <!-- Calendar Section -->
+        <section class="calendar-section">
+            <div class="content">
+                <h2>📅 Calendario Prenotazioni</h2>
+                <p class="section-description">
+                    Seleziona la data e l'orario che preferisci per il servizio di dog sitting
+                </p>
+                
+                <!-- Calendario (visibile solo se loggato) -->
+                <div id="calendar-container" class="calendar-wrapper">
+                    <div id="loading-calendar" class="loading">
+                        <div class="spinner"></div>
+                        <p>Caricamento calendario...</p>
+                    </div>
+                    <iframe 
+                        id="google-calendar"
+                        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Msr_T8nGPwNX_YOURpetsitting.firenze@gmail.com?gv=true"
+                        style="border: 0; display: none;" 
+                        width="100%" 
+                        height="600" 
+                        frameborder="0" 
+                        scrolling="no">
+                    </iframe>
+                </div>
+
+                <!-- Overlay per utenti non loggati -->
+                <div id="login-overlay" class="login-overlay">
+                    <div class="login-card">
+                        <div class="icon">🔒</div>
+                        <h3>Accedi per Prenotare</h3>
+                        <p>Per accedere al calendario e prenotare il tuo servizio, devi prima effettuare il login o registrarti.</p>
+                        
+                        <div class="auth-buttons">
+                            <button class="btn-primary" onclick="showLoginForm()">
+                                <span>🔑</span> Accedi
+                            </button>
+                            <button class="btn-secondary" onclick="showRegisterForm()">
+                                <span>✨</span> Registrati
+                            </button>
+                        </div>
+                        
+                        <p class="small-text">È veloce, gratuito e sicuro!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="content">
+                <h2>📍 Dove Ci Troviamo</h2>
+                <p class="section-description">
+                    Vieni a trovarci! Siamo in zona McDonald's di Via Francesco Baracca, Firenze
+                </p>
+                
+                <div class="map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.6989047393634!2d11.234567!3d43.780123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132a56a680d2ed6b%3A0x4e32b5e0d9c8f7a2!2sMcDonald&#39;s!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit&q=McDonald's+Via+Francesco+Baracca+Firenze"
+                        width="100%" 
+                        height="450" 
+                        style="border:0; border-radius: 15px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    
+                    <div class="map-info">
+                        <div class="info-card">
+                            <span class="icon">📍</span>
+                            <div>
+                                <h4>Indirizzo</h4>
+                                <p>Zona McDonald's<br>Via Francesco Baracca, Firenze</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <span class="icon">🕐</span>
+                            <div>
+                                <h4>Orari</h4>
+                                <p>Lun-Sab: 8:00 - 20:00<br>Domenica: Su prenotazione</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <span class="icon">📞</span>
+                            <div>
+                                <h4>Contatti</h4>
+                                <p>Email: petsitting.firenze@gmail.com<br>Tel: +39 123 456 7890</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>🔑 Accedi</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">📧 Email</label>
+                    <input type="email" id="login-email" required placeholder="tua@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">🔒 Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary full-width">Accedi</button>
+                <p class="switch-auth">
+                    Non hai un account? <a href="#" onclick="switchToRegister()">Registrati qui</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>✨ Registrati</h2>
+            <form id="register-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="register-name">👤 Nome Completo</label>
+                    <input type="text" id="register-name" required placeholder="Mario Rossi">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">📧 Email</label>
+                    <input type="email" id="register-email" required placeholder="tua@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">🔒 Password</label>
+                    <input type="password" id="register-password" required placeholder="••••••••" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">📱 Telefono</label>
+                    <input type="tel" id="register-phone" required placeholder="+39 123 456 7890">
+                </div>
+                <button type="submit" class="btn-primary full-width">Registrati</button>
+                <p class="switch-auth">
+                    Hai già un account? <a href="#" onclick="switchToLogin()">Accedi qui</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="palette-switcher.js"></script>
+    <script src="booking.js"></script>
+    
+</body>
+<!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button onclick="toggleTheme()" id="theme-toggle" title="Cambia tema">🌙</button>
+    </div>
+
+    <!-- Palette Switcher -->
+    <div class="palette-switcher">
+        <button onclick="changePalette('human')" title="Modalità Umano" class="active">👤</button>
+        <button onclick="changePalette('dog')" title="Visione Cane">🐕</button>
+        <button onclick="changePalette('cat')" title="Visione Gatto">🐱</button>
+        <button onclick="changePalette('pet')" title="Pet-Friendly">🐾</button>
+    </div>
+</html>
