@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it" data-palette="human" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lora:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="/pages/services_prices.html">Servizi</a></li>
+            <li><a href="/pages/booking.html">Prenotazione</a></li>
+            <li><a href="/pages/gallery.html">Galleria</a></li>
+            <li><a href="/pages/contacts.html">Contatti</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header/Banner -->
+    <header>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+        <div class="paw">🐾</div>
+
+        <h2>Benvenuto nella sezione Contatti</h2>
+    </header>
+
+    
+    <script src="js/script.js"></script>
+</body>
+<!-- Theme Switcher -->
+<div class="theme-switcher">
+    <button onclick="toggleTheme()" id="theme-toggle" title="Cambia tema">🌙</button>
+</div>
+
+<!-- Palette Switcher -->
+<div class="palette-switcher">
+    <button onclick="changePalette('human')" title="Modalità Umano" class="active">👤</button>
+    <button onclick="changePalette('dog')" title="Visione Cane">🐕</button>
+    <button onclick="changePalette('cat')" title="Visione Gatto">🐱</button>
+    <button onclick="changePalette('pet')" title="Pet-Friendly">🐾</button>
+</div>
+
+</html>
