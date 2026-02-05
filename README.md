@@ -1,7 +1,6 @@
 # PetSitting.samuvara.github.io
-Sito per l'attività di pet sitting di Letizia &amp; Samuel
+Sito web dedicato all’attività di pet sitting di Letizia & Samuel, progettato per offrire un’esperienza utente intuitiva ed efficiente.
 
-All'interno del sito troverete funzionalità per prenotare un servizio o degli slot orari direttamente dal calendario, in modo tale da rendere più veloce, automatico e semplice per l'utente poter interagire con noi!
+La piattaforma consente agli utenti di prenotare servizi e fasce orarie direttamente tramite calendario, automatizzando il processo di richiesta e semplificando l’interazione con il servizio. L’obiettivo è ridurre i tempi di comunicazione e migliorare l’accessibilità alle prestazioni offerte.
 
-Parte tecnica:
-Utilizzo di JavaScript. HTML e CSS con l'ausilio di librerie esterne per la realizzazione di alcuni dettagli.
+Dal punto di vista tecnico, il progetto è realizzato con HTML, CSS e JavaScript, integrando librerie esterne per l’implementazione di funzionalità interattive e per la cura dei dettagli grafici e dell’esperienza utente.
