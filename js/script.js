@@ -1,68 +1,120 @@
 // ============================================
-// PALETTE & THEME SWITCHER
+// PALETTE, TEMA E MENU - SCRIPT DI INTERFACCIA
 // ============================================
+// Questo file gestisce le piccole funzionalità di UI:
+// - Selezione della palette di colori (modalità visuale)
+// - Attivazione/disattivazione del tema chiaro/scuro
+// - Notifiche visive temporanee
+// - Controllo del comportamento del menu hamburger
+// I commenti seguono la logica passo-passo per facilitarne la manutenzione.
 
-// Funzione per cambiare palette
+// ----------------------------
+// Funzione: changePalette(palette)
+// Descrizione:
+// Cambia la "palette" (set di variabili CSS) dell'intera pagina.
+// - Imposta l'attributo `data-palette` sull'elemento `:root` (document.documentElement)
+// - Salva la scelta in `localStorage` per persistenza fra le visite
+// - Aggiorna l'aspetto del pulsante attivo nella UI
+// - Mostra una notifica di feedback all'utente
+// Parametri:
+// - palette (string): la chiave della palette desiderata (es. 'human', 'dog')
 function changePalette(palette) {
+    // Applica la palette come attributo del documento; il CSS usa questo attributo
     document.documentElement.setAttribute('data-palette', palette);
+
+    // Salva la scelta in localStorage per ricordarla alle visite successive
+    // Nota: localStorage salva solo stringhe
     localStorage.setItem('preferred-palette', palette);
     
-    // Aggiorna stato attivo dei bottoni
+    // Aggiorna lo stato visuale dei pulsanti nella palette-switcher
     updateActiveButton(palette);
     
-    // Feedback visivo
+    // Mostra un piccolo messaggio che conferma il cambio di palette
     showNotification(`Modalità ${getPaletteName(palette)} attivata! 🎨`);
 }
 
-// Funzione per toggle dark/light
+// ----------------------------
+// Funzione: toggleTheme()
+// Descrizione:
+// Alterna tra tema 'light' e 'dark'.
+// - Legge l'attributo corrente `data-theme` su <html>
+// - Imposta l'attributo al valore opposto
+// - Salva la preferenza in localStorage
+// - Aggiorna l'icona del pulsante che attiva il tema
 function toggleTheme() {
     const html = document.documentElement;
+
+    // Se non è impostato, assume 'light' come default
     const currentTheme = html.getAttribute('data-theme') || 'light';
+
+    // Calcola il nuovo tema: se era 'light' diventa 'dark', altrimenti 'light'
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
+
+    // Applica il nuovo tema e salva la preferenza
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('preferred-theme', newTheme);
-    
-    // Cambia icona del bottone
+
+    // Aggiorna l'icona del bottone (se esiste) per dare feedback immediato
     const btn = document.getElementById('theme-toggle');
     if (btn) {
+        // Icona sole per tema scuro (così l'utente può tornare al chiaro), luna per tema chiaro
         btn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     }
-    
+
+    // Notifica breve per confermare l'azione
     showNotification(`Modalità ${newTheme === 'dark' ? 'scura' : 'chiara'} attivata!`);
 }
 
-// Aggiorna il bottone attivo
+// ----------------------------
+// Funzione: updateActiveButton(palette)
+// Descrizione:
+// Aggiorna la classe CSS 'active' sui bottoni della palette-switcher.
+// - Rimuove 'active' da tutti i bottoni
+// - Aggiunge 'active' al bottone corrispondente alla palette selezionata
+// Dettagli implementativi:
+// - Usa selettori semplici basati su attributi onclick presenti nell'HTML
 function updateActiveButton(palette) {
+    // Rimuove lo stato 'active' da ogni pulsante dentro .palette-switcher
     document.querySelectorAll('.palette-switcher button').forEach(btn => {
         btn.classList.remove('active');
     });
     
+    // Cerca il pulsante che invoca changePalette con il valore corrispondente
+    // NB: questa tecnica funziona con l'HTML attuale dove i button usano inline onclick
     const activeBtn = document.querySelector(`[onclick="changePalette('${palette}')"]`);
     if (activeBtn) {
         activeBtn.classList.add('active');
     }
 }
 
-// Carica preferenze salvate all'avvio
+// ----------------------------
+// Inizializzazione all'avvio della pagina
+// - Carica le preferenze salvate in localStorage e le applica
+// - Aggiorna icone e bottoni per rispecchiare le preferenze
 window.addEventListener('DOMContentLoaded', () => {
+    // Recupera la palette e il tema salvati; se mancanti usa valori di default
     const savedPalette = localStorage.getItem('preferred-palette') || 'human';
     const savedTheme = localStorage.getItem('preferred-theme') || 'light';
     
+    // Applica gli attributi al documento in modo che il CSS li legga subito
     document.documentElement.setAttribute('data-palette', savedPalette);
     document.documentElement.setAttribute('data-theme', savedTheme);
     
-    // Aggiorna icona theme toggle
+    // Aggiorna l'icona del toggle del tema (coerente con lo stato attuale)
     const btn = document.getElementById('theme-toggle');
     if (btn) {
         btn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     }
     
-    // Aggiorna stato bottone palette
+    // Aggiorna lo stato dei pulsanti delle palette
     updateActiveButton(savedPalette);
 });
 
-// Nomi delle palette
+// ----------------------------
+// Funzione: getPaletteName(palette)
+// Descrizione:
+// Ritorna un'etichetta umana per una palette interna
+// - Utile per messaggi all'utente (showNotification)
 function getPaletteName(palette) {
     const names = {
         'human': 'Umano Friendly',
@@ -73,38 +125,60 @@ function getPaletteName(palette) {
     return names[palette] || palette;
 }
 
-// Notifica visiva
+// ----------------------------
+// Funzione: showNotification(message)
+// Descrizione:
+// Mostra una notifica temporanea in basso allo schermo.
+// Comportamento:
+// 1) Rimuove eventuali notifiche già presenti per evitare sovrapposizioni
+// 2) Crea un div con classe 'notification' e lo inserisce nel DOM
+// 3) Attiva la transizione che lo fa comparire
+// 4) Dopo un periodo rimuove la classe e poi l'elemento dal DOM
+// Note:
+// - La durata e le classi CSS sono gestite dal file CSS
 function showNotification(message) {
-    // Rimuovi notifiche esistenti
+    // Se esiste già una notifica la rimuoviamo immediatamente
     const existing = document.querySelector('.notification');
     if (existing) existing.remove();
-    
+
+    // Creazione dell'elemento di notifica
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
     document.body.appendChild(notification);
-    
+
+    // Piccolo delay per permettere al browser di applicare le transizioni
     setTimeout(() => notification.classList.add('show'), 10);
+
+    // Dopo 2.5s nascondiamo la notifica e poi la rimuoviamo dal DOM
     setTimeout(() => {
         notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 400);
+        setTimeout(() => notification.remove(), 400); // lascia il tempo alla transizione di chiusura
     }, 2500);
 }
 
 // ============================================
 // MENU HAMBURGER
 // ============================================
+// Questo blocco gestisce l'apertura/chiusura della navigazione laterale
+// tramite il pulsante hamburger e chiude il menu quando l'utente clicca su un link.
 
+// Selezione degli elementi interessati nel DOM
 const menuToggle = document.querySelector('.menu-toggle');
 const sideNav = document.querySelector('.side-nav');
 
+// Verifica che gli elementi esistano prima di aggiungere gli event listener
 if (menuToggle && sideNav) {
+    // Click sul pulsante hamburger: toggla classi 'active'
+    // - Sul pulsante per la trasformazione grafica
+    // - Sulla side-nav per farla entrare/uscire
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
         sideNav.classList.toggle('active');
     });
 
-    // Chiudi menu cliccando sui link
+    // Chiudi il menu quando si clicca su uno dei link interni
+    // Questo migliora l'usabilità su dispositivi mobili
     const navLinks = sideNav.querySelectorAll('a');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {

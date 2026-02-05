@@ -15,6 +15,7 @@
     --text: #264653;
     --background: #fef5ed;
     --card-bg: #ffffff;
+    --calendar-bg: #ffffff;
     --border: #e8d5c4;
 }
 
@@ -77,8 +78,9 @@
     --success: #52b788;
     --text: #fef5ed;
     --background: #1a1a1a;
-    --card-bg: #2a2520;
-    --border: #4a3f35;
+    --card-bg: #918e8e;
+    --calendar-bg: #ffffffff;
+    --border: #ffffff;
 }
 
 [data-theme="dark"][data-palette="dog"] {
@@ -534,11 +536,13 @@ header::before {
     position: relative;
     max-width: 900px;
     margin: 0 auto;
-    background: var(--card-bg);
+    background: var(--calendar-bg);
     border-radius: 15px;
     padding: 2rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     min-height: 600px;
+    overflow-y: auto;
+    max-height: 800px;
 }
 
 .loading {
@@ -587,7 +591,9 @@ header::before {
 }
 
 .login-overlay.hidden {
-    display: none;
+    display: none !important;
+    pointer-events: none;
+    opacity: 0;
 }
 
 .login-card {
