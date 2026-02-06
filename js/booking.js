@@ -25,7 +25,7 @@ let isUserLoggedIn = false;
 window.addEventListener('DOMContentLoaded', () => {
     // Controlla se l'utente è già loggato (legge da localStorage)
     checkLoginStatus();
-    
+
     // Inizializza il calendario (imposta l'URL correto dell'iframe)
     initializeCalendar();
 });
@@ -44,11 +44,11 @@ function checkLoginStatus() {
     // Controlla localStorage per una sessione utente salvata in precedenza
     // localStorage persiste anche dopo la chiusura del browser (finché non è cancellato)
     const userSession = localStorage.getItem('userSession');
-    
+
     // Se userSession non è null, significa che l'utente è già loggato
     // Imposta la variabile globale isUserLoggedIn di conseguenza
     isUserLoggedIn = userSession !== null;
-    
+
     // Aggiorna l'interfaccia utente in base allo stato di login
     updateUIBasedOnLogin();
 }
@@ -65,39 +65,94 @@ function updateUIBasedOnLogin() {
     // Recupera gli elementi DOM necessari
     // 1. L'overlay bianco che copre il calendario e chiede il login
     const loginOverlay = document.getElementById('login-overlay');
-    
+
     // 2. L'iframe che contiene il calendario Google
     const calendarIframe = document.getElementById('google-calendar');
-    
+
     // 3. Il messaggio di caricamento con lo spinner animato
     const loadingCalendar = document.getElementById('loading-calendar');
-    
+
     // Controlla lo stato di login
     if (isUserLoggedIn) {
         // ========== UTENTE LOGGATO ==========
-        
+
         // Aggiunge la classe 'hidden' all'overlay di login
         // Nel CSS: .login-overlay.hidden { display: none !important; }
         // Questo nasconde completamente l'overlay bianco
         loginOverlay.classList.add('hidden');
-        
+
         // Simula il caricamento del calendario con un ritardo di 1.5 secondi
         // Questo dà un feedback visivo all'utente (appare il caricamento, poi il calendario)
         setTimeout(() => {
             // Nasconde il messaggio di caricamento
             loadingCalendar.style.display = 'none';
-            
+
             // Mostra l'iframe del calendario
             calendarIframe.style.display = 'block';
         }, 1500); // 1500 millisecondi = 1.5 secondi
-        
+
     } else {
         // ========== UTENTE NON LOGGATO ==========
-        
+
         // Rimuove la classe 'hidden' dall'overlay di login
         // L'overlay viene visualizzato, bloccando l'accesso al calendario
         loginOverlay.classList.remove('hidden');
     }
+}
+
+
+
+// ============================================
+// FUNZIONE: initScrollIndicator() - MIGLIORATA
+// ============================================
+// Scopo: Gestisce gli indicatori di scroll top e bottom
+
+function initScrollIndicator() {
+    const wrapper = document.querySelector('.calendar-wrapper');
+    const container = wrapper?.querySelector('div');
+    
+    if (!container || !wrapper) return;
+    
+    function checkScroll() {
+        const hasScroll = container.scrollHeight > container.clientHeight;
+        const isAtTop = container.scrollTop <= 10;
+        const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 10;
+        
+        if (hasScroll) {
+            wrapper.classList.add('has-scroll');
+            
+            // Mostra/nascondi gradient top
+            if (isAtTop) {
+                wrapper.style.setProperty('--show-top-gradient', '0');
+            } else {
+                wrapper.style.setProperty('--show-top-gradient', '1');
+            }
+            
+            // Mostra/nascondi gradient bottom
+            if (isAtBottom) {
+                wrapper.style.setProperty('--show-bottom-gradient', '0');
+            } else {
+                wrapper.style.setProperty('--show-bottom-gradient', '1');
+            }
+        } else {
+            wrapper.classList.remove('has-scroll');
+        }
+    }
+    
+    // Verifica al caricamento e durante lo scroll
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+    
+    // Verifica anche quando l'iframe si carica
+    const iframe = document.getElementById('google-calendar');
+    if (iframe) {
+        iframe.addEventListener('load', () => {
+            setTimeout(checkScroll, 1000);
+        });
+    }
+    
+    // Verifica periodicamente (per sicurezza)
+    setInterval(checkScroll, 2000);
 }
 
 // ============================================
@@ -109,7 +164,7 @@ function updateUIBasedOnLogin() {
 function initializeCalendar() {
     // Recupera l'elemento iframe del calendario dal DOM
     const calendarIframe = document.getElementById('google-calendar');
-    
+
     // Imposta l'attributo 'src' dell'iframe con l'URL del calendario Google
     // IMPORTANTE: Devi sostituire questo URL con il tuo vero calendario
     // Come farlo:
@@ -131,7 +186,7 @@ function initializeCalendar() {
 function showLoginForm() {
     // Recupera il modal del login
     const modal = document.getElementById('login-modal');
-    
+
     // Aggiunge la classe 'active' al modal
     // Nel CSS: .modal.active { display: flex; align-items: center; justify-content: center; }
     // Questo mostra il modal al centro dello schermo con animazione
@@ -147,7 +202,7 @@ function showLoginForm() {
 function showRegisterForm() {
     // Recupera il modal della registrazione
     const modal = document.getElementById('register-modal');
-    
+
     // Aggiunge la classe 'active' per mostrarlo
     modal.classList.add('active');
 }
@@ -165,7 +220,7 @@ function closeModal() {
     // Seleziona TUTTI gli elementi della pagina con classe 'modal'
     // querySelectorAll ritorna una NodeList (simile a un array)
     const modals = document.querySelectorAll('.modal');
-    
+
     // Ciclo: per ogni modal trovato, rimuove la classe 'active'
     modals.forEach(modal => modal.classList.remove('active'));
     // Questo chiude contemporaneamente login e registrazione se aperti
@@ -183,7 +238,7 @@ function closeModal() {
 function switchToRegister() {
     // Chiude il modal attualmente aperto (login)
     closeModal();
-    
+
     // Aspetta 300 millisecondi prima di aprire il modal di registrazione
     // Questo tempo permette l'animazione di chiusura del modal precedente
     setTimeout(showRegisterForm, 300);
@@ -198,7 +253,7 @@ function switchToRegister() {
 function switchToLogin() {
     // Chiude il modal attualmente aperto (registrazione)
     closeModal();
-    
+
     // Aspetta 300 millisecondi prima di aprire il modal di login
     setTimeout(showLoginForm, 300);
 }
@@ -217,18 +272,18 @@ function switchToLogin() {
 function handleLogin(event) {
     // Previene il comportamento di default del form (che ricaricherebbe la pagina)
     event.preventDefault();
-    
+
     // Recupera i valori dal form di login
     // getElementById seleziona l'elemento con l'id specificato
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
-    
+
     // ⚠️ NOTA: Attualmente è solo una simulazione di login
     // TODO: Implementare la vera logica di autenticazione con un backend
     // - Inviare email e password a un server
     // - Verificare le credenziali
     // - Ricevere un token di autenticazione
-    
+
     // Simula una chiamata al server con un ritardo di 800ms
     // Questo dà all'utente il feedback che qualcosa sta accadendo
     setTimeout(() => {
@@ -237,20 +292,20 @@ function handleLogin(event) {
             email: email,
             loginTime: new Date().toISOString() // Salva l'ora del login
         };
-        
+
         // Salva la sessione in localStorage come stringa JSON
         // localStorage persiste anche dopo il riavvio del browser
         localStorage.setItem('userSession', JSON.stringify(sessionData));
-        
+
         // Aggiorna la variabile globale di stato
         isUserLoggedIn = true;
-        
+
         // Chiude il modal del login
         closeModal();
-        
+
         // Aggiorna l'interfaccia (mostra il calendario, nasconde l'overlay)
         updateUIBasedOnLogin();
-        
+
         // Mostra una notifica di successo all'utente
         showNotification('✅ Login effettuato con successo!');
     }, 800); // Attende 800 millisecondi (0.8 secondi)
@@ -270,13 +325,13 @@ function handleLogin(event) {
 function handleRegister(event) {
     // Previene il comportamento di default del form (ricarica pagina)
     event.preventDefault();
-    
+
     // Recupera i valori dal form di registrazione
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
     const phone = document.getElementById('register-phone').value;
-    
+
     // ⚠️ NOTA: Attualmente è solo una simulazione di registrazione
     // TODO: Implementare la vera logica di registrazione con un backend
     // - Inviare i dati a un server
@@ -284,7 +339,7 @@ function handleRegister(event) {
     // - Creare un nuovo account nel database
     // - Inviare email di conferma
     // - Ricevere un token di autenticazione
-    
+
     // Simula una chiamata al server con un ritardo di 800ms
     setTimeout(() => {
         // Crea un oggetto sessione con i dati del nuovo utente
@@ -294,19 +349,19 @@ function handleRegister(event) {
             phone: phone,
             registerTime: new Date().toISOString() // Salva l'ora della registrazione
         };
-        
+
         // Salva la sessione in localStorage come stringa JSON
         localStorage.setItem('userSession', JSON.stringify(sessionData));
-        
+
         // Aggiorna la variabile globale di stato
         isUserLoggedIn = true;
-        
+
         // Chiude il modal della registrazione
         closeModal();
-        
+
         // Aggiorna l'interfaccia (mostra il calendario, nasconde l'overlay)
         updateUIBasedOnLogin();
-        
+
         // Mostra una notifica di benvenuto personalizzata con il nome dell'utente
         showNotification('✅ Registrazione completata! Benvenuto/a ' + name + '!');
     }, 800); // Attende 800 millisecondi (0.8 secondi)
@@ -327,16 +382,16 @@ function handleLogout() {
     // Rimuove la sessione da localStorage
     // localStorage.removeItem() cancella completamente la chiave specificata
     localStorage.removeItem('userSession');
-    
+
     // Aggiorna la variabile globale di stato
     isUserLoggedIn = false;
-    
+
     // Aggiorna l'interfaccia (nascondi calendario, mostra overlay di login)
     updateUIBasedOnLogin();
-    
+
     // Mostra una notifica di logout
     showNotification('👋 Logout effettuato');
-    
+
     // TODO: Aggiungere un bottone di logout nel menu di navigazione
 }
 
@@ -350,7 +405,7 @@ function handleLogout() {
 //   2. Controlla se il click è avvenuto su un elemento con classe 'modal'
 //   3. Se sì, chiude il modal
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     // Controlla se l'elemento su cui è stato fatto click ha la classe 'modal'
     // event.target è l'elemento su cui è stato cliccato
     // classList.contains() ritorna true se la classe esiste, false altrimenti
@@ -362,3 +417,190 @@ window.onclick = function(event) {
     // Nota: Se il click è sul .modal-content (il contenitore bianco inside),
     // NON viene chiuso perché .modal-content NON ha la classe 'modal'
 }
+
+
+// ============================================
+// FUNZIONE: toggleThemeSwitcher()
+// ============================================
+// Scopo: Apre/chiude la colonna delle opzioni tema
+// Logica: Toggle della classe 'active' su colonna e bottone principale
+
+function toggleThemeSwitcher() {
+    const column = document.getElementById('theme-column');
+    const mainToggle = document.getElementById('main-theme-toggle');
+
+    // Toggle delle classi active
+    column.classList.toggle('active');
+    mainToggle.classList.toggle('active');
+}
+
+// ============================================
+// FUNZIONE: toggleTheme()
+// ============================================
+// Scopo: Cambia tra modalità light e dark
+// Logica: Legge il tema corrente, lo inverte e aggiorna l'icona
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+
+    // Controlla il tema corrente
+    const currentTheme = html.getAttribute('data-theme');
+
+    // Inverte il tema
+    if (currentTheme === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// ============================================
+// FUNZIONE: changePalette(paletteName)
+// ============================================
+// Scopo: Cambia la palette di colori del sito
+// Parametri: paletteName = 'human', 'dog', 'cat', 'pet'
+
+function changePalette(paletteName) {
+    const html = document.documentElement;
+    const paletteButtons = document.querySelectorAll('[data-palette]');
+
+    // Imposta la nuova palette
+    html.setAttribute('data-palette', paletteName);
+
+    // Aggiorna i bottoni attivi
+    paletteButtons.forEach(btn => {
+        if (btn.getAttribute('data-palette') === paletteName) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // Salva la preferenza in localStorage
+    localStorage.setItem('palette', paletteName);
+}
+
+// ============================================
+// EVENTO: Inizializza tema e palette al caricamento
+// ============================================
+window.addEventListener('DOMContentLoaded', () => {
+    // Recupera le preferenze salvate
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedPalette = localStorage.getItem('palette') || 'human';
+
+    // Applica il tema salvato
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Applica la palette salvata
+    changePalette(savedPalette);
+});
+
+// ============================================
+// FUNZIONE: initScrollIndicator()
+// ============================================
+// Scopo: Mostra/nasconde l'indicatore di scroll in base al contenuto
+// Logica: Controlla se il contenuto è scrollabile e aggiunge la classe appropriata
+
+function initScrollIndicator() {
+    const container = document.getElementById('calendar-container');
+    const wrapper = container.closest('.calendar-wrapper');
+
+    if (!container || !wrapper) return;
+
+    // Funzione per verificare se c'è scroll
+    function checkScroll() {
+        const hasScroll = container.scrollHeight > container.clientHeight;
+        const isScrolledToBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 50;
+
+        if (hasScroll && !isScrolledToBottom) {
+            wrapper.classList.add('has-scroll');
+        } else {
+            wrapper.classList.remove('has-scroll');
+        }
+    }
+
+    // Verifica al caricamento e durante lo scroll
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+
+    // Verifica anche quando l'iframe si carica
+    const iframe = document.getElementById('google-calendar');
+    if (iframe) {
+        iframe.addEventListener('load', () => {
+            setTimeout(checkScroll, 500);
+        });
+    }
+}
+
+// ============================================
+// Aggiorna la funzione updateUIBasedOnLogin()
+// ============================================
+// Aggiungi l'inizializzazione dello scroll indicator
+
+function updateUIBasedOnLogin() {
+    const loginOverlay = document.getElementById('login-overlay');
+    const calendarIframe = document.getElementById('google-calendar');
+    const loadingCalendar = document.getElementById('loading-calendar');
+
+    if (isUserLoggedIn) {
+        loginOverlay.classList.add('hidden');
+
+        setTimeout(() => {
+            loadingCalendar.style.display = 'none';
+            calendarIframe.style.display = 'block';
+            calendarIframe.classList.add('loaded');
+
+            // Inizializza l'indicatore di scroll
+            initScrollIndicator();
+        }, 1500);
+
+    } else {
+        loginOverlay.classList.remove('hidden');
+    }
+}
+
+// ============================================
+// Chiamata all'evento DOMContentLoaded
+// ============================================
+// Aggiorna l'evento esistente aggiungendo l'inizializzazione
+
+window.addEventListener('DOMContentLoaded', () => {
+    checkLoginStatus();
+    initializeCalendar();
+
+    // Inizializza lo scroll indicator se già loggato
+    if (isUserLoggedIn) {
+        setTimeout(initScrollIndicator, 2000);
+    }
+});
+
+// Mostra/nascondi scroll hint
+function manageScrollHint() {
+    const container = document.getElementById('calendar-container');
+    const hint = document.getElementById('scroll-hint');
+
+    if (!hint) return;
+
+    const hasScroll = container.scrollHeight > container.clientHeight;
+
+    if (hasScroll && container.scrollTop < 50) {
+        hint.classList.add('show');
+    } else {
+        hint.classList.remove('show');
+    }
+}
+
+// Aggiungi alla funzione initScrollIndicator
+container.addEventListener('scroll', () => {
+    checkScroll();
+    manageScrollHint();
+});

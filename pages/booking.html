@@ -5,20 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prenotazione - Dog Sitting Firenze</title>
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lora:wght@400;600&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lora:wght@400;600&display=swap"
         rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="../css/style.css">
-    
+
     <!-- Google Calendar API -->
     <script src="https://apis.google.com/js/api.js"></script>
 </head>
 
 <body>
-        <!-- Hamburger Menu -->
+    <!-- Hamburger Menu -->
     <button class="menu-toggle" id="menuToggle">
         <span></span>
         <span></span>
@@ -36,16 +37,12 @@
         </ul>
     </nav>
 
-    <!-- Header/Banner -->
-    <!-- <header >
-        <div class="paw">🐾</div>
-        <div class="paw">🐾</div>
-        <div class="paw">🐾</div>
-    </header>
- -->
     <!-- Main Content -->
+    <div class="paw">🐾</div>
+    <div class="paw">🐾</div>
+    <div class="paw">🐾</div>
     <main class="booking-page">
-        
+
         <!-- Calendar Section -->
         <section class="calendar-section">
             <div class="content">
@@ -53,31 +50,43 @@
                 <p class="section-description">
                     Seleziona la data e l'orario che preferisci per il servizio di dog sitting
                 </p>
-                
-                <!-- Calendario (visibile solo se loggato) -->
-                <div id="calendar-container" class="calendar-wrapper">
+
+                <div class="calendar-wrapper">
                     <div id="loading-calendar" class="loading">
                         <div class="spinner"></div>
                         <p>Caricamento calendario...</p>
                     </div>
-                    <iframe 
-                        id="google-calendar"
+                    <iframe id="google-calendar"
                         src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Msr_T8nGPwNX_YOURpetsitting.firenze@gmail.com?gv=true"
-                        style="border: 0; display: none;" 
-                        width="100%" 
-                        height="600" 
-                        frameborder="0" 
-                        scrolling="no">
+                        style="border: 0; display: none;" width="100%" height="1500" frameborder="0" scrolling="yes">
                     </iframe>
                 </div>
+
+                <!-- Calendario (visibile solo se loggato) -->
+                <!-- <div id="calendar-container" class="calendar-wrapper">
+                    <div id="loading-calendar" class="loading">
+                        <div class="spinner"></div>
+                        <p>Caricamento calendario...</p>
+                    </div>
+                    <iframe id="google-calendar"
+                        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Msr_T8nGPwNX_YOURpetsitting.firenze@gmail.com?gv=true"
+                        style="border: 0; display: none;" width="100%" height="2500" frameborder="0" scrolling="yes">
+                    </iframe>
+
+                    <div class="scroll-hint" id="scroll-hint">
+                        <span>⬇️</span>
+                        <p>Scorri per vedere tutti gli orari</p>
+                    </div>
+                </div> -->
 
                 <!-- Overlay per utenti non loggati -->
                 <div id="login-overlay" class="login-overlay">
                     <div class="login-card">
                         <div class="icon">🔒</div>
                         <h3>Accedi per Prenotare</h3>
-                        <p>Per accedere al calendario e prenotare il tuo servizio, devi prima effettuare il login o registrarti.</p>
-                        
+                        <p>Per accedere al calendario e prenotare il tuo servizio, devi prima effettuare il login o
+                            registrarti.</p>
+
                         <div class="auth-buttons">
                             <button class="btn-primary" onclick="showLoginForm()">
                                 <span>🔑</span> Accedi
@@ -86,7 +95,7 @@
                                 <span>✨</span> Registrati
                             </button>
                         </div>
-                        
+
                         <p class="small-text">È veloce, gratuito e sicuro!</p>
                     </div>
                 </div>
@@ -100,18 +109,14 @@
                 <p class="section-description">
                     Vieni a trovarci! Siamo in zona McDonald's di Via Francesco Baracca, Firenze
                 </p>
-                
+
                 <div class="map-wrapper">
-                    <iframe 
+                    <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.6989047393634!2d11.234567!3d43.780123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132a56a680d2ed6b%3A0x4e32b5e0d9c8f7a2!2sMcDonald&#39;s!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit&q=McDonald's+Via+Francesco+Baracca+Firenze"
-                        width="100%" 
-                        height="450" 
-                        style="border:0; border-radius: 15px;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
+                        width="100%" height="450" style="border:0; border-radius: 15px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
-                    
+
                     <div class="map-info">
                         <div class="info-card">
                             <span class="icon">📍</span>
@@ -120,7 +125,7 @@
                                 <p>Zona McDonald's<br>Via Francesco Baracca, Firenze</p>
                             </div>
                         </div>
-                        
+
                         <div class="info-card">
                             <span class="icon">🕐</span>
                             <div>
@@ -128,7 +133,7 @@
                                 <p>Lun-Sab: 8:00 - 20:00<br>Domenica: Su prenotazione</p>
                             </div>
                         </div>
-                        
+
                         <div class="info-card">
                             <span class="icon">📞</span>
                             <div>
@@ -198,18 +203,41 @@
     <!-- Scripts -->
     <script src="../js/booking.js"></script>
     <script src="../js/script.js"></script>
-    
-</body>
-<!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button onclick="toggleTheme()" id="theme-toggle" title="Cambia tema">🌙</button>
-    </div>
 
-    <!-- Palette Switcher -->
-    <div class="palette-switcher">
-        <button onclick="changePalette('human')" title="Modalità Umano" class="active">👤</button>
-        <button onclick="changePalette('dog')" title="Visione Cane">🐕</button>
-        <button onclick="changePalette('cat')" title="Visione Gatto">🐱</button>
-        <button onclick="changePalette('pet')" title="Pet-Friendly">🐾</button>
+</body>
+<!-- Theme Switcher Compatto -->
+<div class="theme-switcher-compact">
+    <button class="main-toggle" onclick="toggleThemeSwitcher()" id="main-theme-toggle" title="Opzioni tema">
+        🎨
+    </button>
+
+    <!-- Menu a colonna (nascosto di default) -->
+    <div class="theme-options-column" id="theme-column">
+        <!-- Divider -->
+        <div class="option-divider">Tema</div>
+
+        <!-- Dark/Light Toggle -->
+        <button onclick="toggleTheme()" id="theme-toggle" class="option-btn" title="Cambia tema">
+            🌙
+        </button>
+
+        <!-- Divider -->
+        <div class="option-divider">Palette</div>
+
+        <!-- Palette Buttons -->
+        <button onclick="changePalette('human')" data-palette="human" class="option-btn active" title="Modalità Umano">
+            👤
+        </button>
+        <button onclick="changePalette('dog')" data-palette="dog" class="option-btn" title="Visione Cane">
+            🐕
+        </button>
+        <button onclick="changePalette('cat')" data-palette="cat" class="option-btn" title="Visione Gatto">
+            🐱
+        </button>
+        <button onclick="changePalette('pet')" data-palette="pet" class="option-btn" title="Pet-Friendly">
+            🐾
+        </button>
     </div>
+</div>
+
 </html>
