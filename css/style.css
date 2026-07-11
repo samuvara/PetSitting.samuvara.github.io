@@ -932,6 +932,120 @@ header::before {
 }
 
 /* ============================================
+   ALERT BANNER - AGOSTO PIENO
+   ============================================ */
+
+.alert-banner {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    color: white;
+    padding: 1.3rem 1.8rem;
+    border-radius: 16px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    animation: alertPulse 2.5s ease-in-out infinite, fadeInUp 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    animation: alertShine 3.5s ease-in-out infinite;
+}
+
+@keyframes alertShine {
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 120%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+@keyframes alertPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 8px 35px rgba(231, 111, 81, 0.4);
+    }
+}
+
+.alert-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    animation: pawFloat 3s ease-in-out infinite;
+}
+
+.alert-text {
+    flex: 1;
+    z-index: 1;
+}
+
+.alert-text strong {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+}
+
+.alert-text p {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.95;
+    margin: 0;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .alert-banner {
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+        padding: 1.2rem 1.3rem;
+    }
+
+    .alert-icon {
+        font-size: 1.8rem;
+    }
+
+    .alert-text strong {
+        font-size: 1.5rem;
+    }
+
+    .alert-text p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .alert-banner {
+        gap: 0.7rem;
+    }
+
+    .alert-text strong {
+        font-size: 1.3rem;
+    }
+}
+
+/* ============================================
    CALENDAR WRAPPER
    ============================================ */
 .calendar-wrapper {

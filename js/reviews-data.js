@@ -112,4 +112,28 @@ const REVIEWS_DATA = [
         service: 'Dog Sitting',
         date: '15 Giugno 2026'
     },
+    {
+        author: 'Emma Bavecchi',
+        avatar: '🐶',
+        rating: 5,
+        text: `Samuel e Letizia si sono occupati il giorno del battesimo del mio bambino del nostro labrador Cecco ..sono ragazzi eccezionali ci sono piaciuti un sacco educati seri e carini . Cecco non si allonta mai con nessuno invece con loro ha fatto una piccola passeggiata ed è stato coccolato tutto il tempo .SUPER`,
+        service: 'Eventi',
+        date: '27 Giugno 2026'
+    },
+    {
+        author: 'Carmelo Russo',
+        avatar: '🐶',
+        rating: 5,
+        text: `Persone serie che si prendono cura del proprio amico a quattro zampe come se fosse il proprio. Ve li consiglio`,
+        service: 'Dog Sitting',
+        date: '30 Giugno 2026'
+    },
+    {
+        author: 'Angela Berni',
+        avatar: '🐶',
+        rating: 5,
+        text: `Letizia una ragazza eccezionale. Si è dimostrata gentile da subito molto dolce e professionale con la mia cagnolina. Inoltre ho apprezzato la sua disponibilità e cosa non dipoco conto le tariffe economiche. È diventata subito un punto di riferimento durante le mie assenze. Grazie di cuore!!`,
+        service: 'Dog Sitting',
+        date: '5 Luglio 2026'
+    },
 ];
