@@ -16,7 +16,7 @@ const REVIEWS_DATA = [
         service: 'Dog Sitting',
         date: '6 Marzo 2026'
     },
-    {
+    /* {
         author: 'Irene',
         avatar: '😺',
         rating: 5,
@@ -31,7 +31,7 @@ const REVIEWS_DATA = [
         text: 'Ragazza fantastica! Mi ha aiutato a portare fuori la Zoe tutte le volte che ne avevo bisogno e mi mandava sempre tante foto. Grazie ancora !!',
         service: 'Dog Sitting',
         date: '10 Marzo 2026'
-    },
+    }, */
     {
         author: 'Cristina Claudia Cottini',
         avatar: '🐶',
@@ -135,5 +135,72 @@ const REVIEWS_DATA = [
         text: `Letizia una ragazza eccezionale. Si è dimostrata gentile da subito molto dolce e professionale con la mia cagnolina. Inoltre ho apprezzato la sua disponibilità e cosa non dipoco conto le tariffe economiche. È diventata subito un punto di riferimento durante le mie assenze. Grazie di cuore!!`,
         service: 'Dog Sitting',
         date: '5 Luglio 2026'
+    },
+    {
+        author: 'Letizia Scavuzzo',
+        avatar: '😺',
+        rating: 5,
+        text: `Abbiamo affidato A Letizia e Samuel il nostro Mainecoon dodicenne, Bilbo. Nonostante lui non fosse mai stato con nessuno di diverso rispetto alla nostra famiglia, siamo molto soddisfatti della scelta che abbiamo fatto. Letizia e Samuel si sono presi cura di lui in ogni sua esigenza con attenzione e pazienza. Ci hanno tenuti aggiornati ogni giorno con video e fotografie. Sono due ragazzi educati, seri nel loro lavoro e disponibili ❤️ grazie ad entrambi per averci permesso di andare in vacanza tranquilli nel sapere Bilbo con voi`,
+        service: 'Cat Sitting',
+        date: '20 Luglio 2026'
+    },
+    {
+        author: 'Gianluigi Caramanna',
+        avatar: '🐶',
+        rating: 5,
+        text: `Letizia e Samuel si sono dimostrati sin da subito cortesi e professionali, hanno gestito egregiamente il mio cucciolo di 9 mesi che in genere si spazientisce e stressa facilmente in contesti nuovi ma quando sono andato a riprenderlo l'ho trovato perfettamente a suo agio. Sono stato costantemente aggiornato con foto e video perciò ho potuto godermi la giornata con la certezza che fosse in ottime mani. Dovessi tornare a Firenze sicuramente mi rivolgerò nuovamente a loro❤️`,
+        service: 'Dog Sitting',
+        date: '28 Luglio 2026'
+    },
+    {
+        author: 'Giorgia C.',
+        avatar: '😺',
+        rating: 5,
+        text: `Ci siamo affidati per la prima volta a un servizio di pet sitting e non potevamo fare scelta migliore. Letizia e Samuel si sono presi cura con grande attenzione e affetto dei nostri tre gatti, facendoci sentire tranquilli fin dal primo giorno. Durante la nostra assenza ci hanno tenuti costantemente aggiornati inviandoci foto e notizie, un gesto che abbiamo apprezzato tantissimo. Si sono dimostrati competenti, affidabili e davvero premurosi con i nostri mici.
+Li consigliamo senza alcun dubbio e ci rivolgeremo senz'altro a loro anche in futuro!`,
+        service: 'Cat Sitting',
+        date: '29 Luglio 2026'
+    },
+    {
+        author: 'Simone Canu',
+        avatar: '😺',
+        rating: 5,
+        text: `Due ragazzi affidabili e simpatici.
+Si percepisce l’amore per gli animali.
+Consiglio.`,
+        service: 'Cat Sitting',
+        date: '1 Agosto 2026'
+    },
+    {
+        author: 'Chiara Lucaccini',
+        avatar: '😺',
+        rating: 5,
+        text: `Cercavo una sistemazione per una settimana per il mio gatto. Non volevo che stesse chiuso in una gabbia, per fortuna ho trovato Samuel e Letizia che lo hanno tenuto in casa con loro,accudito e coccolato. Io ero tranquilla perché avevo continui aggiornamenti,con foto e video. Se avete bisogno di un servizio di per sitter rivolgervi a loro, sono affidabili e ameranno anche i vostri amici animali.`,
+        service: 'Cat Sitting',
+        date: '4 Agosto 2026'
+    },
+    {
+        author: 'Vito Russi',
+        avatar: '😺',
+        rating: 5,
+        text: `abbiamo affidato la nostra gattina chloe per qualche giorno a questi ragazzi fantastici, è stata la miglior scelta! la nostra gattina con loro è stata benissimo, si è affezionata tantissimo sin dal primo istante, e vederla stare così bene ci ha fatto stare ancora più tranquilli mentre eravamo via, sono stati davvero disponibili, gentilissimi e super amorevoli con la nostra gattina, consigliatissimi! per ogni altra esigenza saranno sempre le prime persone a cui mi rivolgerò! grazie ancora!!!`,
+        service: 'Cat Sitting',
+        date: '5 Agosto 2026'
+    },
+    {
+        author: 'Alessandra Benucci',
+        avatar: '😺',
+        rating: 5,
+        text: `Contentissima di aver affidato il mio gattino alle cure amorevoli di questi ragazzi 🥰 ci hanno trasmesso affidabilità e fiducia fin dal primo momento, li ricontatteremo sicuramente! 🐈 🐾`,
+        service: 'Cat Sitting',
+        date: '17 Agosto 2026'
+    },
+    {
+        author: 'Tonia Petrone',
+        avatar: '😺',
+        rating: 5,
+        text: `Per fortuna ho trovato due ragazzi eccezionali a cui affidare il mio gattino quando non ci sono. Super affidabili, educati e disponibili.`,
+        service: 'Cat Sitting',
+        date: '20 Agosto 2026'
     },
 ];
